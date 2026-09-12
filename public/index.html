@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KILLUA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="state-idle">
+
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">K</span>ILLUA
+      <span class="brand-sub">personal ai core</span>
+    </div>
+    <div class="topbar-meta">
+      <span class="exec-badge" id="execBadge" hidden>SYS-EXEC ARMED</span>
+      <span class="conn-indicator">
+        <span class="conn-dot" id="connDot"></span>
+        <span id="connLabel">LINKING</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="hud-grid">
+
+    <section class="side-cards side-left">
+      <article class="stat-card" id="powerCard">
+        <h3>Core Load</h3>
+        <div class="stat-value"><span id="powerValue">0</span><span class="stat-unit">%</span></div>
+        <div class="stat-bar"><div class="stat-bar-fill" id="powerBarFill"></div></div>
+        <p class="stat-note">Context window usage</p>
+      </article>
+
+      <article class="stat-card" id="statusCard">
+        <h3>Status</h3>
+        <ul class="status-list">
+          <li><span>Groq core</span><span class="dot" id="dotGroq"></span></li>
+          <li><span>Fish Audio</span><span class="dot" id="dotFish"></span></li>
+          <li><span>System exec</span><span class="dot" id="dotExec"></span></li>
+        </ul>
+        <p class="stat-note" id="statusNote">Checking systems&hellip;</p>
+      </article>
+    </section>
+
+    <section class="core-stage">
+      <canvas id="visualizer"></canvas>
+
+      <button class="orb" id="orbButton" aria-label="Hold to talk to KILLUA">
+        <span class="orb-ring ring-outer"></span>
+        <span class="orb-ring ring-inner"></span>
+        <span class="orb-core"></span>
+        <span class="orb-state-label" id="orbStateLabel">IDLE</span>
+      </button>
+
+      <p class="live-caption" id="liveCaption"></p>
+    </section>
+
+    <section class="side-cards side-right">
+      <article class="stat-card" id="speedCard">
+        <h3>Response Speed</h3>
+        <div class="stat-value"><span id="speedValue">&mdash;</span><span class="stat-unit">ms</span></div>
+        <p class="stat-note" id="tokenRateNote">No requests yet</p>
+      </article>
+
+      <article class="stat-card response-card" id="responseCard">
+        <h3>Response</h3>
+        <p id="responseText">Awaiting input. Press the core or type a command below.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="dock">
+    <button class="dock-btn mic-btn" id="micButton" title="Push to talk">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="8" y1="23" x2="16" y2="23"/>
+      </svg>
+    </button>
+
+    <input type="text" id="textInput" class="dock-input" placeholder="Speak, or type a command to KILLUA…" autocomplete="off" />
+
+    <button class="dock-btn" id="sendButton" title="Send">SEND</button>
+    <button class="dock-btn" id="chatToggle" title="Conversation log">LOG</button>
+  </footer>
+
+  <aside class="chat-drawer" id="chatDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <span>Conversation Log</span>
+      <button id="closeChat" aria-label="Close log">&times;</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+  </aside>
+
+  <div class="modal-overlay" id="confirmModal" hidden>
+    <div class="modal">
+      <div class="modal-flag">LEVEL 3 · AUTHORIZATION REQUIRED</div>
+      <h2>KILLUA is requesting elevated permission</h2>
+      <div class="modal-tool-list" id="modalToolList"></div>
+      <p class="modal-warning">These actions may be irreversible. Review carefully before authorizing.</p>
+      <div class="modal-actions">
+        <button class="btn btn-deny" id="modalDeny">DENY</button>
+        <button class="btn btn-approve" id="modalApprove">AUTHORIZE</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
