@@ -503,6 +503,9 @@ body.state-error .orb-core {
   justify-content: center;
   padding: 20px;
 }
+.modal-overlay[hidden] {
+  display: none;
+}
 
 .modal {
   width: min(480px, 100%);
